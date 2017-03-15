@@ -99,7 +99,7 @@ compute_image_mean -backend=lmdb C:\caffe\bin\images\train_lmdb\ C:\caffe\bin\im
 
 Schritt 2: 
 Unser CaffeNet muss nun konfiguriert werden mit einer Trainingskonfiguration und einer Solverkonfiguration.
-Ein Teil der Trainingskonfiguration sieht z.B. so aus
+Ein Teil der [Trainingskonfiguration](https://github.com/HeyItsBATMAN/kigods/blob/master/train_val.prototxt) sieht z.B. so aus
 ```
 name: "CaffeNet"
 layer {
@@ -124,7 +124,7 @@ layer {
 ```
 Die Konfiguration für unser Modell wurde aus dem Beispielmodell vom [CAFFE-Standard](https://github.com/BVLC/caffe/blob/master/models/bvlc_reference_caffenet/train_val.prototxt) abgeleitet. Es mussten lediglich einige Eingabewerte, wie die Auflösung unserer Bilder und die Anzahl an Labels/Kategorien, und die Pfade zu unserem Imageset und der Mittelwertdatei geändert werden
 
-Die Solverkonfiguration für unser Modell sieht so aus:
+Die [Solverkonfiguration](https://github.com/HeyItsBATMAN/kigods/blob/master/solver.prototxt) für unser Modell sieht so aus:
 ```
 net: "images/train_val.prototxt"
 test_iter: 1000
@@ -142,3 +142,33 @@ snapshot_prefix: "images/models/model_1"
 solver_mode: GPU
 ```
 Sie beinhaltet die Informationen, wie viele Durchgänge das Netz maximal an einem Modell am Stück trainiert, und wie die Ergebnisse des Trainings weiter Einfluss auf das Training haben, wodurch der Deep Learning Faktor des Frameworks entsteht. Außerdem kann eingestellt werden, dass Rechenleistung der GPU genutzt wird, was dass Training erheblich verschnellert
+
+Schritt 3:
+Das Modell kann nun trainiert werden. Während dem Training gibt CAFFE nicht viel Output was es tut, sondern nur, dass es überhaupt etwas tut.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/caffe%20train.PNG" />
+</p>
+
+Wie in der Solverkonfiguration eingestellt, gibt es alle 50 Schritte einen kurzen Überblick über den *Loss* des neuralen Netzwerks
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/caffe%20iteration%2050.PNG" />
+</p>
+
+In einem [Log](https://github.com/HeyItsBATMAN/kigods/blob/master/model_1.log) kann sich dann später durchlesen wie es lief, oder, wie wir es hier gemacht haben, einen Graphen erstellen, der darstellt wie sich der errechnete *Loss*-Wert alle 50 Durchgänge verändert hat.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/loss%20chart.PNG" />
+</p>
+
+
+# Und jetzt?
+Mit unseren Modellen kann man nun mittels CAFFE eine Klassifizierung durchführen, die ein Eingabebild mit dem Modell abgleicht und eine Vorhersage trifft, welches Label dem neuen Bild am nächsten kommt.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/caffe%20finished%20model.PNG" />
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/caffe%20finished%20prediction.PNG" />
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/caffe%20korrigierte%20labels.PNG" />
+</p>
+Unser eigenes Modell, welches mit knapp 250 Bildern trainiert hat, kann also nun Vorhersagen treffen, ob ein Eingabebild zu Poseidon, Zeus oder einer alten Gebäudestruktur passt
