@@ -6,7 +6,7 @@
 </p>
 
 **Anmerkung**: 
-Für den größten Teils des Projekt wurde das Deep Learning Framework *CAFFE* verwendet. Da das kompilierte Projekt mit allen Dependencies *mehrere* Gigabyte an Daten sind, ist dieses Github-Repository nur eine *Ergebnissammlung*
+Für den größten Teil des Projekts wurde das Deep Learning Framework *CAFFE* verwendet. Da das kompilierte Projekt mit allen Dependencies *mehrere* Gigabyte an Daten sind, ist dieses Github-Repository nur eine *Ergebnissammlung*
 [CAFFE](http://caffe.berkeleyvision.org/) [(Repository)](https://github.com/BVLC/caffe/tree/master)
 
 [**Arachne**](https://arachne.dainst.org/): 
@@ -46,7 +46,7 @@ using (var client = new WebClient())
 ```
 
 
-[**Image Resizer**](https://github.com/HeyItsBATMAN/kigods/blob/master/hello.py): Um die Bilder auf eine einheitliche Größe zu bringen, was erstens Grundvoraussetzung ist damit *CAFFE* mit den Bildern arbeiten kann und zweitens das Training, durch die geringe Auflösung, verschnellert, haben wir ein kurzes **Python** Script verwendet, welches mittels der *Python Image Library* die Bilder verkleinert
+[**Image Resizer**](https://github.com/HeyItsBATMAN/kigods/blob/master/hello.py): Um die Bilder auf eine einheitliche Größe zu bringen, was erstens Grundvoraussetzung ist, damit *CAFFE* mit den Bildern arbeiten kann und zweitens das Training, durch die geringe Auflösung, verschnellert, haben wir ein kurzes **Python** Script verwendet, welches mittels der *Python Image Library* die Bilder verkleinert
 ```python
 from PIL import Image
 import os, sys
@@ -81,7 +81,7 @@ Die Bilddateien bekommen in einer Textdatei ihr Label, also ihre *Kategorie* zug
 </p>
 
 Schritt 2:
-Nach dem kompilieren von CAFFE kann das beigefügte Tool zum konvertieren des Imagesets mit wenigen Anweisungen benutzt werden
+Nach dem Kompilieren von CAFFE kann das beigefügte Tool zum Konvertieren des Imagesets mit wenigen Anweisungen benutzt werden
 <p align="center">
   <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/caffe%20create_imageset.PNG" />
 </p>
@@ -122,7 +122,7 @@ layer {
   }
 }
 ```
-Die Konfiguration für unser Modell wurde aus dem Beispielmodell vom [CAFFE-Standard](https://github.com/BVLC/caffe/blob/master/models/bvlc_reference_caffenet/train_val.prototxt) abgeleitet. Es mussten lediglich einige Eingabewerte, wie die Auflösung unserer Bilder und die Anzahl an Labels/Kategorien, und die Pfade zu unserem Imageset und der Mittelwertdatei geändert werden
+Die Konfiguration für unser Modell wurde aus dem Beispielmodell vom [CAFFE-Standard](https://github.com/BVLC/caffe/blob/master/models/bvlc_reference_caffenet/train_val.prototxt) abgeleitet. Es mussten lediglich einige Eingabewerte, wie die Auflösung unserer Bilder und die Anzahl an Labels/Kategorien und die Pfade zu unserem Imageset und der Mittelwertdatei geändert werden
 
 Die [Solverkonfiguration](https://github.com/HeyItsBATMAN/kigods/blob/master/solver.prototxt) für unser Modell sieht so aus:
 ```
@@ -141,7 +141,7 @@ snapshot: 5000
 snapshot_prefix: "images/models/model_1"
 solver_mode: GPU
 ```
-Sie beinhaltet die Informationen, wie viele Durchgänge das Netz maximal an einem Modell am Stück trainiert, und wie die Ergebnisse des Trainings weiter Einfluss auf das Training haben, wodurch der Deep Learning Faktor des Frameworks entsteht. Außerdem kann eingestellt werden, dass Rechenleistung der GPU genutzt wird, was dass Training erheblich verschnellert
+Sie beinhaltet die Informationen, wie viele Durchgänge das Netz maximal an einem Modell am Stück trainiert, und wie die Ergebnisse des Trainings weiter Einfluss auf das Training haben, wodurch der Deep Learning Faktor des Frameworks entsteht. Außerdem kann eingestellt werden, dass Rechenleistung der GPU genutzt wird, was das Training erheblich verschnellert
 
 Schritt 3:
 Das Modell kann nun trainiert werden. Während dem Training gibt CAFFE nicht viel Output was es tut, sondern nur, dass es überhaupt etwas tut.
