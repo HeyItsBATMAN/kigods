@@ -73,9 +73,72 @@ Die runtergeladenen Bilder sind alle in einem Ordner gelagert. Da unter anderem 
 </p>
 
 
-Die Bilder in dem Ordner müssen nun in mehreren Schritten zu einem CAFFE-kompatiblen Imageset konvertiert werden.
+Die Bilder in dem Ordner müssen nun in zwei Schritten zu einem CAFFE-kompatiblen Imageset konvertiert werden.
 Schritt 1:
 Die Bilddateien bekommen in einer Textdatei ihr Label, also ihre *Kategorie* zugewiesen. Hier in dem Bild sind die Labels einfach durchnummeriert. Poseidonbilder bekommen eine 0, Tempelbilder eine 1 und Zeusbilder eine 2.
 <p align="center">
   <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/caffe%20labeltext.PNG" />
 </p>
+
+Schritt 2:
+Nach dem kompilieren von CAFFE kann das beigefügte Tool zum konvertieren des Imagesets mit wenigen Anweisungen benutzt werden
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/caffe%20create_imageset.PNG" />
+</p>
+
+Nun muss ein CAFFE-Modell gebaut und trainiert werden.
+Schritt 1: Der Output des eben erstellten Imagesets 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/caffe%20train_lmdb.PNG" />
+</p>
+wird verwendet um den *Image Mean* (Mittelwert) der Elemente des Imagesets auszurechnen.
+Mit folgendem Befehl wird aus dem Imageset (train_lmdb) eine Mittelwertdatei (mean.binaryproto)
+```
+compute_image_mean -backend=lmdb C:\caffe\bin\images\train_lmdb\ C:\caffe\bin\images\mean.binaryproto
+```
+
+Schritt 2: 
+Unser CaffeNet muss nun konfiguriert werden mit einer Trainingskonfiguration und einer Solverkonfiguration.
+Ein Teil der Trainingskonfiguration sieht z.B. so aus
+```
+name: "CaffeNet"
+layer {
+  name: "data"
+  type: "Data"
+  top: "data"
+  top: "label"
+  include {
+    phase: TRAIN
+  }
+  transform_param {
+    mirror: true
+    crop_size: 64
+    mean_file: "images/mean.binaryproto"
+  }
+  data_param {
+    source: "C:\\caffe\\bin\\images\\train_lmdb"
+    batch_size: 256
+    backend: LMDB
+  }
+}
+```
+Die Konfiguration für unser Modell wurde aus dem Beispielmodell vom [CAFFE-Standard](https://github.com/BVLC/caffe/blob/master/models/bvlc_reference_caffenet/train_val.prototxt) abgeleitet. Es mussten lediglich einige Eingabewerte, wie die Auflösung unserer Bilder und die Anzahl an Labels/Kategorien, und die Pfade zu unserem Imageset und der Mittelwertdatei geändert werden
+
+Die Solverkonfiguration für unser Modell sieht so aus:
+```
+net: "images/train_val.prototxt"
+test_iter: 1000
+test_interval: 1000
+base_lr: 0.001
+lr_policy: "step"
+gamma: 0.1
+stepsize: 2500
+display: 50
+max_iter: 40000
+momentum: 0.9
+weight_decay: 0.0005
+snapshot: 5000
+snapshot_prefix: "images/models/model_1"
+solver_mode: GPU
+```
+Sie beinhaltet die Informationen, wie viele Durchgänge das Netz maximal an einem Modell am Stück trainiert, und wie die Ergebnisse des Trainings weiter Einfluss auf das Training haben, wodurch der Deep Learning Faktor des Frameworks entsteht. Außerdem kann eingestellt werden, dass Rechenleistung der GPU genutzt wird, was dass Training erheblich verschnellert
