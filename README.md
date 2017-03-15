@@ -1,7 +1,9 @@
 # Künstliche Intelligenz und Cultural Heritage
 ## Ein Kurs bei Dr. Jan Gerrit Wieners und Prof. Dr. Øyvind Eide
 
-![alt text](https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/17357225_1419599171392757_2132309679_o.png "Projektposter")
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/17357225_1419599171392757_2132309679_o.png" />
+</p>
 
 **Anmerkung**: 
 Für den größten Teils des Projekt wurde das Deep Learning Framework *CAFFE* verwendet. Da das kompilierte Projekt mit allen Dependencies *mehrere* Gigabyte an Daten sind, ist dieses Github-Repository nur eine *Ergebnissammlung*
@@ -62,3 +64,18 @@ def resize():
 
 resize()
 ```
+
+
+**Weiteres Vorgehen und Arbeiten mit CAFFE**:
+Die runtergeladenen Bilder sind alle in einem Ordner gelagert. Da unter anderem auch Bilder von z.B. einem Zeus-*Tempel* unter den Bildern waren, wurden diese manuell umbenannt. Dadurch soll CAFFE dann unterscheiden können, welche Bilder ein Zeus Kopf sind und welche einfach nur ein Tempel.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/caffe%20imageset.PNG" />
+</p>
+
+
+Die Bilder in dem Ordner müssen nun in mehreren Schritten zu einem CAFFE-kompatiblen Imageset konvertiert werden.
+Schritt 1:
+Die Bilddateien bekommen in einer Textdatei ihr Label, also ihre *Kategorie* zugewiesen. Hier in dem Bild sind die Labels einfach durchnummeriert. Poseidonbilder bekommen eine 0, Tempelbilder eine 1 und Zeusbilder eine 2.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/caffe%20labeltext.PNG" />
+</p>
