@@ -175,8 +175,14 @@ Unser eigenes Modell, welches mit knapp 250 Bildern trainiert hat, kann also nun
 
 
 # Unsere Gruppe:
+
 - Benedikt Mildenberger
+
 - Jason Steinkühler
+
 - Kai Niebes
+
 - Niclas Schwarzbach
+
 - Thomas Schiffer
+
