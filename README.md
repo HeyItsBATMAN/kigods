@@ -172,3 +172,11 @@ Mit unseren Modellen kann man nun mittels CAFFE eine Klassifizierung durchführe
   <img src="https://raw.githubusercontent.com/HeyItsBATMAN/kigods/master/caffe%20korrigierte%20labels.PNG" />
 </p>
 Unser eigenes Modell, welches mit knapp 250 Bildern trainiert hat, kann also nun Vorhersagen treffen, ob ein Eingabebild zu Poseidon, Zeus oder einer alten Gebäudestruktur passt
+
+
+# Unsere Gruppe:
+Benedikt Mildenberger
+Jason Steinkühler
+Kai Niebes
+Niclas Schwarzbach
+Thomas Schiffer
